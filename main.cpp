@@ -4,12 +4,12 @@
 #include "PosixQueue.h"
 #include "LockFreeQueue.h"
 
-#define NUM_THREADS 10000
+#define NUM_THREADS 1000
 
 void* testPosixQueue(void *posixQueue) {
     auto* queue = static_cast<PosixQueue*>(posixQueue);
 
-    for (int j = 0; j < 50; j++) {
+    for (int j = 0; j < 100; j++) {
         for (int i = 0; i < 10; i++) {
             queue->enqueue(i);
         }
@@ -40,34 +40,33 @@ void* testLockFreeQueue(void *lockFreeQueue) {
 
 int main() {
 
-    printf("485739\n");
-
     pthread_t threads[NUM_THREADS];
 
-//    auto start = std::chrono::steady_clock::now();
-//    auto* posixQueue = new PosixQueue();
-//
-//    for (int t = 0; t < NUM_THREADS; t++) {
-//        int ret = pthread_create(&threads[t], nullptr, testPosixQueue, posixQueue);
-//        if (ret != 0) {
-//            printf("Error creating thread (´• ω •`) ♡");
-//        }
-//    }
-//
-//    for (unsigned long thread : threads) {
-//        pthread_join(thread, nullptr);
-//    }
-//
-//    auto end = std::chrono::steady_clock::now();
-//    std::chrono::duration<double> elapsed_seconds = end-start;
-//    printf("Duration (posix): %f seconds\n", elapsed_seconds.count());
-//    posixQueue->getSize();
-
     auto start = std::chrono::steady_clock::now();
+    auto* posixQueue = new PosixQueue();
+
+    for (unsigned long long & thread : threads) {
+        int ret = pthread_create(&thread, nullptr, testPosixQueue, posixQueue);
+        if (ret != 0) {
+            printf("Error creating thread (´• ω •`) ♡");
+        }
+    }
+
+    for (unsigned long thread : threads) {
+        pthread_join(thread, nullptr);
+    }
+
+    auto end = std::chrono::steady_clock::now();
+    std::chrono::duration<double> posixDuration = end - start;
+    float posixTime = posixDuration.count();
+    printf("Duration (posix): %f seconds\n", posixTime);
+    posixQueue->getSize();
+
+    start = std::chrono::steady_clock::now();
     auto* lockFreeQueue = new LockFreeQueue();
 
-    for (int t = 0; t < NUM_THREADS; t++) {
-        int ret = pthread_create(&threads[t], nullptr, testLockFreeQueue, lockFreeQueue);
+    for (unsigned long long & thread : threads) {
+        int ret = pthread_create(&thread, nullptr, testLockFreeQueue, lockFreeQueue);
         if (ret != 0) {
             printf("Error creating thread (´• ω •`) ♡");
         }
@@ -77,10 +76,14 @@ int main() {
         pthread_join(thread, nullptr);
     }
 
-    auto end = std::chrono::steady_clock::now();
-    std::chrono::duration<double> elapsed_seconds = end-start;
-    printf("Duration (lock-free): %f seconds\n", elapsed_seconds.count());
+    end = std::chrono::steady_clock::now();
+    std::chrono::duration<double> lockFreeDuration = end - start;
+    float lockFreeTime = lockFreeDuration.count();
+    printf("Duration (lock-free): %f seconds\n", lockFreeTime);
     lockFreeQueue->getSize();
+
+    int percentage = static_cast<int>(lockFreeTime * 100 / posixTime);
+    printf("485739\n%d", percentage);
 
     return 0;
 }

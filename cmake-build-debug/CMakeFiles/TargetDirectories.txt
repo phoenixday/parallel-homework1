@@ -1,0 +1,3 @@
+C:/Users/I587489/CLionProjects/parallel-homework1/cmake-build-debug/CMakeFiles/hw1.dir
+C:/Users/I587489/CLionProjects/parallel-homework1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/I587489/CLionProjects/parallel-homework1/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,6 +1,5 @@
 #include "LockFreeQueue.h"
 #include <cstdio>
-#include <atomic>
 
 // https://blog.devgenius.io/a-simple-guide-to-atomics-in-c-670fc4842c8b
 
