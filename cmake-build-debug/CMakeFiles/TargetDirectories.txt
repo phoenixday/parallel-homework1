@@ -1,3 +1,0 @@
-/home/phoenixday/Documents/parallel programming/hw1/cmake-build-debug/CMakeFiles/hw1.dir
-/home/phoenixday/Documents/parallel programming/hw1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/phoenixday/Documents/parallel programming/hw1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
