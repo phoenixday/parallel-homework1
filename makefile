@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall
+CXXFLAGS = -std=c++11 -Wall -pthread -Wno-attributes
 
 SRCS = main.cpp PosixQueue.cpp LockFreeQueue.cpp
 OBJS = $(SRCS:.cpp=.o)
