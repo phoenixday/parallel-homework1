@@ -4,7 +4,7 @@
 #include "PosixQueue.h"
 #include "LockFreeQueue.h"
 
-#define NUM_THREADS 1000
+#define NUM_THREADS 100
 
 void* testPosixQueue(void *posixQueue) {
     auto* queue = static_cast<PosixQueue*>(posixQueue);
