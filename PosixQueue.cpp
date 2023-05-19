@@ -1,5 +1,4 @@
 #include "PosixQueue.h"
-#include <cstdio>
 #include <pthread.h>
 
 PosixQueue::PosixQueue() {
@@ -16,11 +15,6 @@ PosixQueue::~PosixQueue() {
 
 bool PosixQueue::isEmpty() const {
     return size == 0;
-}
-
-int PosixQueue::getSize() const {
-    printf("size: %d (◕‿◕)♡\n", size);
-    return size;
 }
 
 void PosixQueue::enqueue(int key) {
@@ -53,18 +47,5 @@ void PosixQueue::dequeue() {
         size--;
     }
     pthread_mutex_unlock(&mutex);
-}
-
-void PosixQueue::printQueue() {
-    if (isEmpty()) {
-        printf("empty queue ( ˘⌣˘)♡(˘⌣˘ )\n");
-        return;
-    }
-    Node *curr = start;
-    while (curr != nullptr) {
-        printf("%d ", curr->key);
-        curr = curr->next;
-    }
-    printf("\nsize: %d (◕‿◕)♡\n", size);
 }
 

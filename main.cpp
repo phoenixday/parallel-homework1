@@ -45,7 +45,7 @@ int main() {
     auto start = std::chrono::steady_clock::now();
     auto* posixQueue = new PosixQueue();
 
-    for (unsigned long long & thread : threads) {
+    for (unsigned long & thread : threads) {
         int ret = pthread_create(&thread, nullptr, testPosixQueue, posixQueue);
         if (ret != 0) {
             printf("Error creating thread (´• ω •`) ♡");
@@ -59,13 +59,11 @@ int main() {
     auto end = std::chrono::steady_clock::now();
     std::chrono::duration<double> posixDuration = end - start;
     float posixTime = posixDuration.count();
-    printf("Duration (posix): %f seconds\n", posixTime);
-    posixQueue->getSize();
 
     start = std::chrono::steady_clock::now();
     auto* lockFreeQueue = new LockFreeQueue();
 
-    for (unsigned long long & thread : threads) {
+    for (unsigned long & thread : threads) {
         int ret = pthread_create(&thread, nullptr, testLockFreeQueue, lockFreeQueue);
         if (ret != 0) {
             printf("Error creating thread (´• ω •`) ♡");
@@ -79,11 +77,9 @@ int main() {
     end = std::chrono::steady_clock::now();
     std::chrono::duration<double> lockFreeDuration = end - start;
     float lockFreeTime = lockFreeDuration.count();
-    printf("Duration (lock-free): %f seconds\n", lockFreeTime);
-    lockFreeQueue->getSize();
 
     int percentage = static_cast<int>(lockFreeTime * 100 / posixTime);
-    printf("485739\n%d", percentage);
+    printf("485739\n%d\n", percentage);
 
     return 0;
 }

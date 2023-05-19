@@ -12,8 +12,6 @@ public:
     [[nodiscard]] bool isEmpty() const; // otestuj, zda je fronta prázdná
     void enqueue(int key); // zařaď prvek do fronty (na konec)
     void dequeue(); // vyber prvek z fronty (ze zacatku)
-    [[nodiscard]] int getSize() const;
-    void printQueue();
 };
 
 

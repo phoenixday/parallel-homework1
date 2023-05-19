@@ -1,7 +1,4 @@
 #include "LockFreeQueue.h"
-#include <cstdio>
-
-// https://blog.devgenius.io/a-simple-guide-to-atomics-in-c-670fc4842c8b
 
 LockFreeQueue::LockFreeQueue() {
     start = nullptr;
@@ -32,30 +29,4 @@ void LockFreeQueue::dequeue() {
         newStart = oldStart->next;
     } while (!start.compare_exchange_weak(oldStart, newStart));
     delete oldStart;
-}
-
-int LockFreeQueue::getSize() const {
-    int size = 0;
-    Node* curr = start;
-    while (curr != nullptr) {
-        size += 1;
-        curr = curr->next;
-    }
-    printf("size: %d (◕‿◕)♡\n", size);
-    return size;
-}
-
-void LockFreeQueue::printQueue() {
-    if (isEmpty()) {
-        printf("empty queue ( ˘⌣˘)♡(˘⌣˘ )\n");
-        return;
-    }
-    int size = 0;
-    Node* curr = start;
-    while (curr != nullptr) {
-        printf("%d ", curr->key);
-        size += 1;
-        curr = curr->next;
-    }
-    printf("\nsize: %d (◕‿◕)♡\n", size);
 }
